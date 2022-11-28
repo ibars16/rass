@@ -7,6 +7,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +30,8 @@ public class GestorBDIncidencia extends SQLiteOpenHelper {
                 "descripcio TEXT," +
                 "element TEXT," +
                 "tipus TEXT," +
-                "ubicacio TEXT)");
+                "ubicacio TEXT," +
+                "date DATETIME)");
     }
 
     @Override

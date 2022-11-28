@@ -12,6 +12,8 @@ package com.example.tasca2;
 
         import android.view.View;
 
+        import androidx.core.app.NotificationCompat;
+        import androidx.core.app.NotificationManagerCompat;
         import androidx.navigation.NavController;
         import androidx.navigation.Navigation;
         import androidx.navigation.ui.AppBarConfiguration;
@@ -44,8 +46,11 @@ public class CreateIncidencia extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.siuu);
+
         List<Incidencia> incidencias = gbdRest.getIncidencias();
         ListView incidenciasMostrar =  (ListView)findViewById(R.id.list);
+
+
         IncidenciasAdapter incidenciasAdapter = new IncidenciasAdapter(CreateIncidencia.this, incidencias);
         incidenciasMostrar.setAdapter(incidenciasAdapter);
 

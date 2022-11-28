@@ -1,10 +1,12 @@
 <resources>
         <string name="app_name">tasca2</string>
     <string name="titulo">Alta Incidència</string>
-    <string name="nom">Nom:</string>
-    <string name="element">Element afectat:</string>
-    <string name="tipus">Tipus:</string>
-    <string name="ubicacio">Ubicació:</string>
-    <string name="descripcio">Descripció:</string>
+    <string name="nom">Nom</string>
+    <string name="element">Element afectat</string>
+    <string name="tipus">Tipus</string>
+    <string name="ubicacio">Ubicació</string>
+    <string name="descripcio">Descripció</string>
     <string name="data">Data:</string>
+    <string name="channel_name">test</string>
+    <string name="channel_description">testest</string>
 </resources>

@@ -1,26 +1,28 @@
 package com.example.tasca2;
 
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
-
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.DialogFragment;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.List;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity  implements DatePickerDialog.OnDateSetListener {
 
     Button saveIncidence;
+    Button dateButton;
+    Button dayButton;
     EditText nameEditText;
     Spinner elementSpinner;
     Spinner typeSpinner;
@@ -31,6 +33,7 @@ public class MenuActivity extends AppCompatActivity {
     String[] ubications = {"Clase 1DAM","Clase 2DAM", "Sala reunions"};
     public GestorBDIncidencia gbdRest = new GestorBDIncidencia(this);
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,15 @@ public class MenuActivity extends AppCompatActivity {
         this.typeSpinner();
         this.ubicationSpinner();
 
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, String.valueOf(0))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("textTitle")
+                .setContentText("textContent")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         saveIncidence = (Button) findViewById(R.id.button2);
+        dateButton = (Button) findViewById(R.id.datee);
+        dayButton = (Button) findViewById(R.id.dateday);
         nameEditText = (EditText) findViewById(R.id.nameInput);
         descriptionEditText = (EditText) findViewById(R.id.descriptionInput);
         List<Incidencia> incidencias = gbdRest.getIncidencias();
@@ -57,6 +68,26 @@ public class MenuActivity extends AppCompatActivity {
                         String typeName = typeSpinner.getSelectedItem().toString();
                         String ubicationName = ubicationSpinner.getSelectedItem().toString();
                         gbdRest.createIncidencia(name, description, elementName, typeName, ubicationName);
+                        notificationManager.notify(0, builder.build());
+                    }
+                });
+        this.dateButton.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    public void onClick(View view) {
+                        DialogFragment newFragment = new SelectDateFragment();
+                        newFragment.show(getSupportFragmentManager(), "timePicker");
+
+                    }
+                });
+        this.dayButton.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    public void onClick(View view) {
+                        DialogFragment newFragment = new DatePickerFragmentDay();
+                        newFragment.show(getSupportFragmentManager(), "datePicker");
+
+
                     }
                 });
     }
@@ -77,5 +108,8 @@ public class MenuActivity extends AppCompatActivity {
         this.ubicationSpinner.setAdapter(arrayAdapter);
     }
 
-
+    @Override
+    public void onDateSet(DatePicker view, int yy, int mm, int dd) {
+        String a = "a";
+    }
 }
